@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escola Digital 33</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
+    header { background: #2c3e50; color: #fff; padding: 20px 10px; text-align: center; }
+    h1 { margin: 0; font-size: 28px; }
+    p { margin-top: 5px; font-size: 16px; }
+    .container { max-width: 1000px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; text-align: center; }
+    .curso { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 6px; background: #fafafa; transition: transform 0.2s ease; }
+    .curso:hover { transform: scale(1.02); }
+    .curso img { width: 100%; height: auto; border-radius: 4px; margin-top: 10px; }
+    .valor { color: #27ae60; font-weight: bold; font-size: 18px; margin: 10px 0; }
+    .botao, .botao-pagamento { display: inline-block; background: #25d366; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px 5px 0 0; transition: background 0.3s; }
+    .botao:hover, .botao-pagamento:hover { background: #1ebe5d; }
+    .carousel-container { overflow: hidden; position: relative; margin-top: 40px; }
+    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-item { flex: 0 0 20%; padding: 5px; }
+    .carousel-item img { width: 100%; border-radius: 6px; height: auto; }
+    .carousel-buttons { text-align: center; margin-top: 10px; }
+    .carousel-buttons button { background: #2c3e50; color: white; padding: 8px 16px; border: none; margin: 0 5px; cursor: pointer; border-radius: 4px; }
+    footer { text-align: center; padding: 20px; font-size: 14px; background: #eee; margin-top: 40px; }
+    @media (max-width: 600px) {
+      h1 { font-size: 22px; }
+      .curso { padding: 10px; }
+      .botao, .botao-pagamento { width: 100%; text-align: center; }
+      .carousel-item { flex: 0 0 50%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Escola Digital 33</h1>
+    <p>Todos os cursos por apenas R$33 com acesso vitalício!</p>
+  </header>
+
+  <div class="container">
+    <h2>Cursos Disponíveis</h2>
+
+    <!-- Seção de miniaturas -->
+    <div class="carousel-container">
+      <div class="carousel-track" id="carousel">
+        <!-- Exemplo de 70 imagens -->
+        <!-- Substitua os caminhos abaixo pelas suas imagens reais -->
+        <!-- Você pode usar imagens hospedadas ou locais -->
+        <!-- Exemplo: <img src="imagens/curso1.jpg"> ou links online -->
+        <script>
+          for (let i = 1; i <= 70; i++) {
+            document.write(`<div class='carousel-item'><img src='https://via.placeholder.com/150x100?text=Curso+${i}' alt='Curso ${i}' /></div>`);
+          }
+        </script>
+      </div>
+    </div>
+    <div class="carousel-buttons">
+      <button onclick="scrollCarousel(-1)">&larr; Anterior</button>
+      <button onclick="scrollCarousel(1)">Próximo &rarr;</button>
+    </div>
+
+    <div class="curso">
+      <h3>Título do Curso</h3>
+      <img src="sua-imagem-aqui.jpg" alt="Imagem do curso" />
+      <p>Descrição do curso. Adicione aqui informações como o que será aprendido, público-alvo, bônus, etc.</p>
+      <p class="valor">Valor: R$33 (acesso vitalício)</p>
+      <p><strong>Atenção:</strong> O acesso será liberado após a confirmação do pagamento.</p>
+      <a class="botao-pagamento" href="#">Pagar com MercadoPago</a>
+      <a class="botao" href="https://wa.me/5599999999999?text=Olá!%20Enviei%20o%20comprovante%20do%20curso%20de%20R$33%20da%20Escola%20Digital%2033." target="_blank">Enviar comprovante no WhatsApp</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Escola Digital 33. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const track = document.getElementById('carousel');
+    let currentIndex = 0;
+    function scrollCarousel(direction) {
+      const items = document.querySelectorAll('.carousel-item');
+      const itemsPerPage = window.innerWidth < 600 ? 2 : 5;
+      const totalPages = Math.ceil(items.length / itemsPerPage);
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex >= totalPages) currentIndex = totalPages - 1;
+      const scrollAmount = currentIndex * 100;
+      track.style.transform = `translateX(-${scrollAmount}%)`;
+    }
+  </script>
+</body>
+</html>
