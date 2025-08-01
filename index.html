@@ -1,5 +1,235 @@
 
 ```html
+```diff
+<<<<<<< SEARCH
+                    <div class="course-card" onclick="window.location.href='#payment-' + this.querySelector('.course-title').textContent.toLowerCase().replace(/\s+/g, '-')">
+=======
+                    <div class="course-card" onclick="showCourseDetails(this.querySelector('.course-title').textContent.toLowerCase().replace(/\s+/g, '-'), this.querySelector('.course-title').textContent, this.querySelector('img').src)">
+>>>>>>> REPLACE
+``
+```
+`
+
+2. Add the course details section template before the payment section:
+
+```html
+```diff
+<<<<<<< SEARCH
+    <!-- Payment Section -->
+=======
+    <!-- Course Details Section -->
+    <section class="course-details" id="course-details">
+        <div class="container">
+            <button class="btn-back" onclick="hideCourseDetails()">
+                <i class="fas fa-arrow-left"></i> Voltar aos Cursos
+            </button>
+            
+            <div class="details-content">
+                <div class="details-header">
+                    <img id="course-details-img" src="" alt="Imagem do Curso" class="course-image">
+                    <div class="details-title">
+                        <h2 id="course-details-title"></h2>
+                        <p class="price">R$33</p>
+                        <p class="access">Acesso Vitalício</p>
+                    </div>
+                </div>
+                
+                <div class="details-body">
+                    <h3>O que você vai aprender:</h3>
+                    <ul id="course-features" class="features-list">
+                        <!-- Features will be added by JavaScript -->
+                    </ul>
+                    
+                    <h3>Sobre o Curso</h3>
+                    <p id="course-description" class="description"></p>
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="showPaymentForm()">Quero este curso!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+>>>>>>> REPLACE
+``
+```
+`
+
+3. Add the course details CSS:
+
+```html
+```diff
+<<<<<<< SEARCH
+        /* Payment Section */
+=======
+        /* Course Details */
+        .course-details {
+            display: none;
+            padding: 40px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .details-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .details-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .details-header img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .details-title {
+            flex: 1;
+        }
+        
+        .details-title h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 5px;
+        }
+        
+        .access {
+            color: var(--primary-purple);
+        }
+        
+        .features-list {
+            margin: 20px 0;
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li i {
+            color: var(--neon-green);
+            margin-right: 10px;
+        }
+        
+        .description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .btn-block {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Payment Section */
+>>>>>>> REPLACE
+`
+```
+``
+
+4. Update the JavaScript functions:
+
+```html
+```diff
+<<<<<<< SEARCH
+    <script>
+        function showCourseDetails(courseId) {
+            document.getElementById(`course-${courseId}`).style.display = 'block';
+            document.getElementById(`payment-${courseId}`).style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        function hideCourseDetails() {
+            document.querySelectorAll('.course-details-section').forEach(el => {
+                el.style.display = 'none';
+            });
+        }
+        
+        function showPaymentForm(courseId) {
+            document.getElementById(`course-${courseId}`).style.display = 'none';
+            document.getElementById(`payment-${courseId}`).style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+=======
+    <script>
+        const courseData = {
+            'desenvolvimento-web': {
+                title: 'Desenvolvimento Web Completo',
+                description: 'Aprenda a criar sites modernos e aplicações web completas com HTML5, CSS3, JavaScript e frameworks modernos. Do básico ao avançado em um só curso!',
+                features: [
+                    'Criar sites responsivos que funcionam em qualquer dispositivo',
+                    'Dominar JavaScript e frameworks como React',
+                    'Integrar com APIs e bancos de dados',
+                    'Publicar seu site na internet',
+                    'Boas práticas de desenvolvimento web'
+                ]
+            },
+            'python-para-iniciantes': {
+                title: 'Python para Iniciantes',
+                description: 'Aprenda Python desde o básico até conceitos avançados, uma das linguagens mais versáteis e requisitadas no mercado.',
+                features: [
+                    'Lógica de programação com Python',
+                    'Trabalhar com bancos de dados',
+                    'Automatizar tarefas',
+                    'Criar aplicações web',
+                    'Análise de dados básica'
+                ]
+            }
+            // Add other courses similarly
+        };
+
+        function showCourseDetails(courseId, courseTitle, courseImage) {
+            const course = courseData[courseId];
+            
+            document.getElementById('course-details-img').src = courseImage;
+            document.getElementById('course-details-title').textContent = courseTitle;
+            document.getElementById('course-description').textContent = course.description;
+            
+            const featuresList = document.getElementById('course-features');
+            featuresList.innerHTML = '';
+            course.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+            
+            document.getElementById('course-details').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        function hideCourseDetails() {
+            document.getElementById('course-details').style.display = 'none';
+        }
+        
+        function showPaymentForm() {
+            document.getElementById('course-details').style.display = 'none';
+            document.getElementById('payment-desenvolvimento-web').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+>>>>>>> REPLACE
+```
+```
+
+
+Let me know if you'd like me to provide the course data for the other courses (Marketing Digital, UI/UX Design, etc.) or if you need any adjustments to the styling.Here is the updated HTML content after applying above edits:
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -433,6 +663,189 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
+
+        /* Course Details Section */
+        .course-details-section {
+            padding: 40px 0;
+            background-color: var(--light-gray);
+            display: none;
+        }
+        
+        .course-details-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--primary-purple);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .course-metadata {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .course-features {
+            margin: 20px 0 30px;
+            list-style: none;
+        }
+        
+        .course-features li {
+            margin-bottom: 10px;
+        }
+        
+        .course-features i {
+            color: var(--neon-green);
+            margin-right: 10px;
+        }
+
+        /* Course Details */
+        .course-details {
+            display: none;
+            padding: 40px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .details-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .details-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .details-header img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .details-title {
+            flex: 1;
+        }
+        
+        .details-title h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 5px;
+        }
+        
+        .access {
+            color: var(--primary-purple);
+        }
+        
+        .features-list {
+            margin: 20px 0;
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li i {
+            color: var(--neon-green);
+            margin-right: 10px;
+        }
+        
+        .description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .btn-block {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            display: none;
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .payment-content {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .payment-form {
+            flex: 1;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .payment-methods {
+            margin: 20px 0;
+        }
+
+        .payment-methods label {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-summary {
+            flex: 1;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .course-summary {
+            text-align: center;
+        }
+
+        .course-summary img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
         
         /* Responsive Styles */
         @media (max-width: 992px) {
@@ -527,7 +940,7 @@
             <div class="courses-container">
                 <div class="course-slider">
                     <!-- Course 1 -->
-                    <div class="course-card">
+                    <div class="course-card" onclick="showCourseDetails('desenvolvimento-web')">
                         <div class="course-image">
                             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Curso de Desenvolvimento Web: tela de código com HTML, CSS e JavaScript em editor moderno">
                         </div>
@@ -538,7 +951,7 @@
                     </div>
                     
                     <!-- Course 2 -->
-                    <div class="course-card">
+                    <div class="course-card" onclick="showCourseDetails(this.querySelector('.course-title').textContent.toLowerCase().replace(/\s+/g, '-'), this.querySelector('.course-title').textContent, this.querySelector('img').src)">
                         <div class="course-image">
                             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3cbb6e84-21ad-4528-83ee-fa47794afced.png" alt="Curso de Python: notebook com gráficos de dados e linhas de código Python">
                         </div>
@@ -549,6 +962,1473 @@
                     </div>
                     
                     <!-- Course 3 -->
-                    <div class="course-card">
+                    <div class="course-card" onclick="window.location.href='#payment-python'">
                         <div class="course-image">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9788343-b54e-4951-b4f
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9788343-b54e-4951-b4f4-ee63e48baf09.png" alt="Curso de Marketing Digital: dashboard com métricas e gráficos de redes sociais">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Marketing Digital Essencial</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 4 -->
+                    <div class="course-card" onclick="window.location.href='#payment-marketing-digital'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76b3c8ae-65f4-43f0-8fa1-e3f5ed495cda.png" alt="Curso de UI/UX Design: telas de aplicativo móvel com wireframes e protótipos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">UI/UX Design Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 5 -->
+                    <div class="course-card" onclick="window.location.href='#payment-ui-ux'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/58f05f97-2334-4550-9b3d-8995e6e12e3e.png" alt="Curso de Data Science: visualização de dados com gráficos 3D e bancos de dados">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Introdução à Data Science</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 6 -->
+                    <div class="course-card" onclick="window.location.href='#payment-data-science'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/674f38ce-7458-4743-9d19-bbb06ddde3ea.png" alt="Curso de JavaScript Avançado: código JavaScript com efeitos visuais interativos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">JavaScript Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-nav">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Transformando Vidas</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Em apenas 3 meses após concluir o curso de Marketing Digital, tripliquei minha renda trabalhando como freelancer. O retorno foi incrível para um investimento de apenas R$33!"</p>
+                <p class="testimonial-author">— Carlos Mendes, Especialista em Marketing Digital</p>
+                
+                <div class="guarantee-badge">
+                    Mais de 10.000 alunos transformando suas vidas com apenas R$33
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details-section" id="course-desenvolvimento-web">
+        <div class="container">
+            <div class="course-details">
+                <div class="course-details-content">
+                    <button class="btn-back" onclick="hideCourseDetails()">
+                        <i class="fas fa-arrow-left"></i> Voltar para cursos
+                    </button>
+                    <h2>Desenvolvimento Web Completo</h2>
+                    <div class="course-metadata">
+                        <span class="price">R$33</span>
+                        <span class="duration">Acesso Vitalício</span>
+                    </div>
+                    <img src="https://storage.../webdev-image.png" alt="Desenvolvimento Web">
+                    <h3>Sobre este curso</h3>
+                    <p>Domine as tecnologias mais modernas do mercado web. Aprenda HTML5, CSS3, JavaScript, React e Node.js para criar aplicações completas...</p>
+                    
+                    <h3>O que você aprenderá</h3>
+                    <ul class="course-features">
+                        <li><i class="fas fa-check"></i> Criar sites responsivos modernos</li>
+                        <li><i class="fas fa-check"></i> Lógica de programação com JavaScript</li>
+                        <li><i class="fas fa-check"></i> Integrar com APIs e bancos de dados</li>
+                    </ul>
+                    
+                    <button class="btn btn-primary" onclick="showPaymentForm('desenvolvimento-web')">
+                        Quero me inscrever agora!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details" id="course-details">
+        <div class="container">
+            <button class="btn-back" onclick="hideCourseDetails()">
+                <i class="fas fa-arrow-left"></i> Voltar aos Cursos
+            </button>
+            
+            <div class="details-content">
+                <div class="details-header">
+                    <img id="course-details-img" src="" alt="Imagem do Curso" class="course-image">
+                    <div class="details-title">
+                        <h2 id="course-details-title"></h2>
+                        <p class="price">R$33</p>
+                        <p class="access">Acesso Vitalício</p>
+                    </div>
+                </div>
+                
+                <div class="details-body">
+                    <h3>O que você vai aprender:</h3>
+                    <ul id="course-features" class="features-list">
+                        <!-- Features will be added by JavaScript -->
+                    </ul>
+                    
+                    <h3>Sobre o Curso</h3>
+                    <p id="course-description" class="description"></p>
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="showPaymentForm()">Quero este curso!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section" id="payment-desenvolvimento-web">
+        <div class="container">
+            <h2 class="section-title">Finalizar Compra - Desenvolvimento Web Completo</h2>
+            <div class="payment-content">
+                <div class="payment-form">
+                    <h3>Informações Pessoais</h3>
+                    <form>
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="tel" placeholder="Telefone" required>
+                        
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <label>
+                                <input type="radio" name="payment" checked>
+                                <i class="fab fa-pix"></i> PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="payment">
+                                <i class="fab fa-cc-visa"></i> Cartão de Crédito
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Finalizar Compra por R$33</button>
+                    </form>
+                </div>
+                <div class="payment-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="course-summary">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Desenvolvimento Web Completo">
+                        <h4>Desenvolvimento Web Completo</h4>
+                        <p>Acesso Vitalício</p>
+                        <div class="price">R$33</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Sections -->
+    <section class="payment-section" id="payment-desenvolvimento-web">
+        <div class="container">
+            <h2 class="section-title">Finalizar Compra - Desenvolvimento Web Completo</h2>
+            <div class="payment-content">
+                <div class="payment-form">
+                    <h3>Informações Pessoais</h3>
+                    <form id="payment-form" onsubmit="processPayment(event)">
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="tel" placeholder="Telefone" required>
+                        
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <label>
+                                <input type="radio" name="payment" value="pix" checked>
+                                <i class="fab fa-pix"></i> PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="payment" value="credit">
+                                <i class="fab fa-cc-visa"></i> Cartão de Crédito
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Finalizar Compra por R$33</button>
+                    </form>
+                </div>
+                <div class="payment-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="course-summary">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9717a60-d687-47c1-8ad9-0b752adc7581.png" alt="Desenvolvimento Web Completo">
+                        <h4>Desenvolvimento Web Completo</h4>
+                        <p>Acesso Vitalício</p>
+                        <div class="price">R$33</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Escola Digital 33</h3>
+                    <p>Educação digital acessível para todos. Cursos de qualidade por apenas R$33 com acesso vitalício.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/5562991446490"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Cursos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Desenvolvimento Web</a></li>
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Marketing Digital</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Data Science</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone-alt"></i> (11) 99999-9999</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@escoladigital33.com</a></li>
+                        <li><a href="https://wa.me/5562991446490"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2024 Escola Digital 33. Todos os direitos reservados. CNPJ: 12.345.678/0001-00</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const courseData = {
+            'desenvolvimento-web': {
+                title: 'Desenvolvimento Web Completo',
+                description: 'Aprenda a criar sites modernos e aplicações web completas com HTML5, CSS3, JavaScript e frameworks modernos. Do básico ao avançado em um só curso!',
+                features: [
+                    'Criar sites responsivos que funcionam em qualquer dispositivo',
+                    'Dominar JavaScript e frameworks como React',
+                    'Integrar com APIs e bancos de dados',
+                    'Publicar seu site na internet',
+                    'Boas práticas de desenvolvimento web'
+                ]
+            },
+            'python-para-iniciantes': {
+                title: 'Python para Iniciantes',
+                description: 'Aprenda Python desde o básico até conceitos avançados, uma das linguagens mais versáteis e requisitadas no mercado.',
+                features: [
+                    'Lógica de programação com Python',
+                    'Trabalhar com bancos de dados',
+                    'Automatizar tarefas',
+                    'Criar aplicações web',
+                    'Análise de dados básica'
+                ]
+            }
+            // Add other courses similarly
+        };
+
+        function showCourseDetails(courseId, courseTitle, courseImage) {
+            const course = courseData[courseId];
+            
+            document.getElementById('course-details-img').src = courseImage;
+            document.getElementById('course-details-title').textContent = courseTitle;
+            document.getElementById('course-description').textContent = course.description;
+            
+            const featuresList = document.getElementById('course-features');
+            featuresList.innerHTML = '';
+            course.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+            
+            document.getElementById('course-details').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        function hideCourseDetails() {
+            document.getElementById('course-details').style.display = 'none';
+        }
+        
+        function showPaymentForm() {
+            document.getElementById('course-details').style.display = 'none';
+            document.getElementById('payment-desenvolvimento-web').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        // Handle payment section visibility
+        document.addEventListener('DOMContentLoaded', function() {
+            if(window.location.hash) {
+                const paymentSection = document.querySelector(window.location.hash);
+                if(paymentSection) {
+                    paymentSection.scrollIntoView();
+                }
+            }
+        });
+
+        // Carousel functionality
+        const courseSlider = document.querySelector('.course-slider');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        nextBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Button hover effect enhancement
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-3px)';
+                button.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
+
+🎨 **Generating images based on descriptions...**
+
+✅ **Images generated successfully! Here's your updated content:**
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Digital 33 - Cursos de Tecnologia</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #141332;
+            --primary-purple: #5a2d9e;
+            --neon-green: #00e676;
+            --cyan: #00f0ff;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-purple));
+            color: var(--white);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.15) 0%, transparent 20%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--neon-green);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--cyan);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--neon-green);
+            margin: 15px auto 0;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-purple);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding: 80px 0;
+        }
+        
+        .courses-container {
+            position: relative;
+        }
+        
+        .course-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 30px;
+            padding: 30px 10px;
+            margin-bottom: 20px;
+        }
+        
+        .course-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .course-card {
+            scroll-snap-align: start;
+            flex: 0 0 calc(20% - 24px);
+            min-width: 250px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-image {
+            width: 100%;
+            height: 160px;
+            position: relative;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .course-info {
+            padding: 20px;
+        }
+        
+        .course-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        .course-price {
+            font-weight: 600;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+        }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-btn:hover {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .guarantee-badge {
+            display: inline-block;
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--neon-green);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-green);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Course Details Section */
+        .course-details-section {
+            padding: 40px 0;
+            background-color: var(--light-gray);
+            display: none;
+        }
+        
+        .course-details-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--primary-purple);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .course-metadata {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .course-features {
+            margin: 20px 0 30px;
+            list-style: none;
+        }
+        
+        .course-features li {
+            margin-bottom: 10px;
+        }
+        
+        .course-features i {
+            color: var(--neon-green);
+            margin-right: 10px;
+        }
+
+        /* Course Details */
+        .course-details {
+            display: none;
+            padding: 40px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .details-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .details-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .details-header img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .details-title {
+            flex: 1;
+        }
+        
+        .details-title h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 5px;
+        }
+        
+        .access {
+            color: var(--primary-purple);
+        }
+        
+        .features-list {
+            margin: 20px 0;
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li i {
+            color: var(--neon-green);
+            margin-right: 10px;
+        }
+        
+        .description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .btn-block {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            display: none;
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .payment-content {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .payment-form {
+            flex: 1;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .payment-methods {
+            margin: 20px 0;
+        }
+
+        .payment-methods label {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-summary {
+            flex: 1;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .course-summary {
+            text-align: center;
+        }
+
+        .course-summary img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .course-card {
+                flex: 0 0 calc(33.333% - 20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .course-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+            
+            .footer-column {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .course-card {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Domine o digital com nossos cursos por apenas R$33</h1>
+                <p>Aprenda as habilidades mais demandadas do mercado com acesso vitalício por um preço único</p>
+                <div class="cta-buttons">
+                    <a href="#courses" class="btn btn-primary">Ver cursos</a>
+                    <a href="https://wa.me/5562991446490" class="btn btn-secondary">Falar no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Sobre a Escola Digital 33</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Educação de qualidade a preço acessível</h2>
+                    <p>Na Escola Digital 33, revolucionamos o aprendizado online com cursos práticos e atualizados.</p>
+                    <p>Por <span class="highlight">apenas R$33 por curso</span>, você obtém <span class="highlight">acesso permanente</span> e pode estudar no seu próprio ritmo.</p>
+                    <p>Nossa missão é capacitar pessoas com habilidades digitais práticas que realmente fazem diferença no mercado de trabalho.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fd79e677-a1a5-43fe-a387-6e875ce54157.png" alt="Estudantes diversificados usando laptops e tablets em ambiente moderno de aprendizado colaborativo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Nossos Cursos</h2>
+            <div class="courses-container">
+                <div class="course-slider">
+                    <!-- Course 1 -->
+                    <div class="course-card" onclick="showCourseDetails('desenvolvimento-web')">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Curso de Desenvolvimento Web: tela de código com HTML, CSS e JavaScript em editor moderno">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Desenvolvimento Web Completo</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="course-card" onclick="showCourseDetails(this.querySelector('.course-title').textContent.toLowerCase().replace(/\s+/g, '-'), this.querySelector('.course-title').textContent, this.querySelector('img').src)">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3cbb6e84-21ad-4528-83ee-fa47794afced.png" alt="Curso de Python: notebook com gráficos de dados e linhas de código Python">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Python para Iniciantes</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 3 -->
+                    <div class="course-card" onclick="window.location.href='#payment-python'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9788343-b54e-4951-b4f4-ee63e48baf09.png" alt="Curso de Marketing Digital: dashboard com métricas e gráficos de redes sociais">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Marketing Digital Essencial</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 4 -->
+                    <div class="course-card" onclick="window.location.href='#payment-marketing-digital'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76b3c8ae-65f4-43f0-8fa1-e3f5ed495cda.png" alt="Curso de UI/UX Design: telas de aplicativo móvel com wireframes e protótipos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">UI/UX Design Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 5 -->
+                    <div class="course-card" onclick="window.location.href='#payment-ui-ux'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/58f05f97-2334-4550-9b3d-8995e6e12e3e.png" alt="Curso de Data Science: visualização de dados com gráficos 3D e bancos de dados">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Introdução à Data Science</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 6 -->
+                    <div class="course-card" onclick="window.location.href='#payment-data-science'">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/674f38ce-7458-4743-9d19-bbb06ddde3ea.png" alt="Curso de JavaScript Avançado: código JavaScript com efeitos visuais interativos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">JavaScript Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-nav">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Transformando Vidas</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Em apenas 3 meses após concluir o curso de Marketing Digital, tripliquei minha renda trabalhando como freelancer. O retorno foi incrível para um investimento de apenas R$33!"</p>
+                <p class="testimonial-author">— Carlos Mendes, Especialista em Marketing Digital</p>
+                
+                <div class="guarantee-badge">
+                    Mais de 10.000 alunos transformando suas vidas com apenas R$33
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details-section" id="course-desenvolvimento-web">
+        <div class="container">
+            <div class="course-details">
+                <div class="course-details-content">
+                    <button class="btn-back" onclick="hideCourseDetails()">
+                        <i class="fas fa-arrow-left"></i> Voltar para cursos
+                    </button>
+                    <h2>Desenvolvimento Web Completo</h2>
+                    <div class="course-metadata">
+                        <span class="price">R$33</span>
+                        <span class="duration">Acesso Vitalício</span>
+                    </div>
+                    <img src="https://storage.../webdev-image.png" alt="Desenvolvimento Web">
+                    <h3>Sobre este curso</h3>
+                    <p>Domine as tecnologias mais modernas do mercado web. Aprenda HTML5, CSS3, JavaScript, React e Node.js para criar aplicações completas...</p>
+                    
+                    <h3>O que você aprenderá</h3>
+                    <ul class="course-features">
+                        <li><i class="fas fa-check"></i> Criar sites responsivos modernos</li>
+                        <li><i class="fas fa-check"></i> Lógica de programação com JavaScript</li>
+                        <li><i class="fas fa-check"></i> Integrar com APIs e bancos de dados</li>
+                    </ul>
+                    
+                    <button class="btn btn-primary" onclick="showPaymentForm('desenvolvimento-web')">
+                        Quero me inscrever agora!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details" id="course-details">
+        <div class="container">
+            <button class="btn-back" onclick="hideCourseDetails()">
+                <i class="fas fa-arrow-left"></i> Voltar aos Cursos
+            </button>
+            
+            <div class="details-content">
+                <div class="details-header">
+                    <img id="course-details-img" src="" alt="Imagem do Curso" class="course-image" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5d330c76-4459-4dbc-ae7e-3d31ac9df853.png">
+                    <div class="details-title">
+                        <h2 id="course-details-title"></h2>
+                        <p class="price">R$33</p>
+                        <p class="access">Acesso Vitalício</p>
+                    </div>
+                </div>
+                
+                <div class="details-body">
+                    <h3>O que você vai aprender:</h3>
+                    <ul id="course-features" class="features-list">
+                        <!-- Features will be added by JavaScript -->
+                    </ul>
+                    
+                    <h3>Sobre o Curso</h3>
+                    <p id="course-description" class="description"></p>
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="showPaymentForm()">Quero este curso!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section" id="payment-desenvolvimento-web">
+        <div class="container">
+            <h2 class="section-title">Finalizar Compra - Desenvolvimento Web Completo</h2>
+            <div class="payment-content">
+                <div class="payment-form">
+                    <h3>Informações Pessoais</h3>
+                    <form>
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="tel" placeholder="Telefone" required>
+                        
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <label>
+                                <input type="radio" name="payment" checked>
+                                <i class="fab fa-pix"></i> PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="payment">
+                                <i class="fab fa-cc-visa"></i> Cartão de Crédito
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Finalizar Compra por R$33</button>
+                    </form>
+                </div>
+                <div class="payment-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="course-summary">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Desenvolvimento Web Completo">
+                        <h4>Desenvolvimento Web Completo</h4>
+                        <p>Acesso Vitalício</p>
+                        <div class="price">R$33</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Sections -->
+    <section class="payment-section" id="payment-desenvolvimento-web">
+        <div class="container">
+            <h2 class="section-title">Finalizar Compra - Desenvolvimento Web Completo</h2>
+            <div class="payment-content">
+                <div class="payment-form">
+                    <h3>Informações Pessoais</h3>
+                    <form id="payment-form" onsubmit="processPayment(event)">
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="tel" placeholder="Telefone" required>
+                        
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <label>
+                                <input type="radio" name="payment" value="pix" checked>
+                                <i class="fab fa-pix"></i> PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="payment" value="credit">
+                                <i class="fab fa-cc-visa"></i> Cartão de Crédito
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Finalizar Compra por R$33</button>
+                    </form>
+                </div>
+                <div class="payment-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="course-summary">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9717a60-d687-47c1-8ad9-0b752adc7581.png" alt="Desenvolvimento Web Completo">
+                        <h4>Desenvolvimento Web Completo</h4>
+                        <p>Acesso Vitalício</p>
+                        <div class="price">R$33</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Escola Digital 33</h3>
+                    <p>Educação digital acessível para todos. Cursos de qualidade por apenas R$33 com acesso vitalício.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/5562991446490"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Cursos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Desenvolvimento Web</a></li>
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Marketing Digital</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Data Science</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone-alt"></i> (11) 99999-9999</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@escoladigital33.com</a></li>
+                        <li><a href="https://wa.me/5562991446490"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2024 Escola Digital 33. Todos os direitos reservados. CNPJ: 12.345.678/0001-00</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const courseData = {
+            'desenvolvimento-web': {
+                title: 'Desenvolvimento Web Completo',
+                description: 'Aprenda a criar sites modernos e aplicações web completas com HTML5, CSS3, JavaScript e frameworks modernos. Do básico ao avançado em um só curso!',
+                features: [
+                    'Criar sites responsivos que funcionam em qualquer dispositivo',
+                    'Dominar JavaScript e frameworks como React',
+                    'Integrar com APIs e bancos de dados',
+                    'Publicar seu site na internet',
+                    'Boas práticas de desenvolvimento web'
+                ]
+            },
+            'python-para-iniciantes': {
+                title: 'Python para Iniciantes',
+                description: 'Aprenda Python desde o básico até conceitos avançados, uma das linguagens mais versáteis e requisitadas no mercado.',
+                features: [
+                    'Lógica de programação com Python',
+                    'Trabalhar com bancos de dados',
+                    'Automatizar tarefas',
+                    'Criar aplicações web',
+                    'Análise de dados básica'
+                ]
+            }
+            // Add other courses similarly
+        };
+
+        function showCourseDetails(courseId, courseTitle, courseImage) {
+            const course = courseData[courseId];
+            
+            document.getElementById('course-details-img').src = courseImage;
+            document.getElementById('course-details-title').textContent = courseTitle;
+            document.getElementById('course-description').textContent = course.description;
+            
+            const featuresList = document.getElementById('course-features');
+            featuresList.innerHTML = '';
+            course.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+            
+            document.getElementById('course-details').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        function hideCourseDetails() {
+            document.getElementById('course-details').style.display = 'none';
+        }
+        
+        function showPaymentForm() {
+            document.getElementById('course-details').style.display = 'none';
+            document.getElementById('payment-desenvolvimento-web').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        // Handle payment section visibility
+        document.addEventListener('DOMContentLoaded', function() {
+            if(window.location.hash) {
+                const paymentSection = document.querySelector(window.location.hash);
+                if(paymentSection) {
+                    paymentSection.scrollIntoView();
+                }
+            }
+        });
+
+        // Carousel functionality
+        const courseSlider = document.querySelector('.course-slider');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        nextBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Button hover effect enhancement
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-3px)';
+                button.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
+
+```
