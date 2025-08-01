@@ -1,0 +1,16 @@
+
+2. Now let's add the back button HTML:
+
+```html
+```diff
+<<<<<<< SEARCH
+    <!-- Course Details Section -->
+    <section class="course-details">
+=======
+    <!-- Course Details Section -->
+    <section class="course-details">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+        </a>
+>>>>>>> REPLACE
