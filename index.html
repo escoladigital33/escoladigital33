@@ -1,94 +1,707 @@
+```html
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escola Digital 33</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
-    header { background: #2c3e50; color: #fff; padding: 20px 10px; text-align: center; }
-    h1 { margin: 0; font-size: 28px; }
-    p { margin-top: 5px; font-size: 16px; }
-    .container { max-width: 1000px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; text-align: center; }
-    .curso { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 6px; background: #fafafa; transition: transform 0.2s ease; }
-    .curso:hover { transform: scale(1.02); }
-    .curso img { width: 100%; height: auto; border-radius: 4px; margin-top: 10px; }
-    .valor { color: #27ae60; font-weight: bold; font-size: 18px; margin: 10px 0; }
-    .botao, .botao-pagamento { display: inline-block; background: #25d366; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px 5px 0 0; transition: background 0.3s; }
-    .botao:hover, .botao-pagamento:hover { background: #1ebe5d; }
-    .carousel-container { overflow: hidden; position: relative; margin-top: 40px; }
-    .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
-    .carousel-item { flex: 0 0 20%; padding: 5px; }
-    .carousel-item img { width: 100%; border-radius: 6px; height: auto; }
-    .carousel-buttons { text-align: center; margin-top: 10px; }
-    .carousel-buttons button { background: #2c3e50; color: white; padding: 8px 16px; border: none; margin: 0 5px; cursor: pointer; border-radius: 4px; }
-    footer { text-align: center; padding: 20px; font-size: 14px; background: #eee; margin-top: 40px; }
-    @media (max-width: 600px) {
-      h1 { font-size: 22px; }
-      .curso { padding: 10px; }
-      .botao, .botao-pagamento { width: 100%; text-align: center; }
-      .carousel-item { flex: 0 0 50%; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Digital 33 - Cursos de Tecnologia</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #141332;
+            --primary-purple: #5a2d9e;
+            --neon-green: #00e676;
+            --cyan: #00f0ff;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-purple));
+            color: var(--white);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.15) 0%, transparent 20%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--neon-green);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--cyan);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--neon-green);
+            margin: 15px auto 0;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-purple);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding: 80px 0;
+        }
+        
+        .courses-container {
+            position: relative;
+        }
+        
+        .course-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            gap: 30px;
+            padding: 30px 10px;
+            margin-bottom: 20px;
+        }
+        
+        .course-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .course-card {
+            scroll-snap-align: start;
+            flex: 0 0 calc(20% - 24px);
+            min-width: 250px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-image {
+            width: 100%;
+            height: 160px;
+            position: relative;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .course-info {
+            padding: 20px;
+        }
+        
+        .course-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+        
+        .course-price {
+            font-weight: 600;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+        }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-btn:hover {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+        
+        .guarantee-badge {
+            display: inline-block;
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--neon-green);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-green);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--neon-green);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .course-card {
+                flex: 0 0 calc(33.333% - 20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .course-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+            
+            .footer-column {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .course-card {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Escola Digital 33</h1>
-    <p>Todos os cursos por apenas R$33 com acesso vitalício!</p>
-  </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Domine o digital com nossos cursos por apenas R$33</h1>
+                <p>Aprenda as habilidades mais demandadas do mercado com acesso vitalício por um preço único</p>
+                <div class="cta-buttons">
+                    <a href="#courses" class="btn btn-primary">Ver cursos</a>
+                    <a href="#contact" class="btn btn-secondary">Falar no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="container">
-    <h2>Cursos Disponíveis</h2>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Sobre a Escola Digital 33</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Educação de qualidade a preço acessível</h2>
+                    <p>Na Escola Digital 33, revolucionamos o aprendizado online com cursos práticos e atualizados.</p>
+                    <p>Por <span class="highlight">apenas R$33 por curso</span>, você obtém <span class="highlight">acesso permanente</span> e pode estudar no seu próprio ritmo.</p>
+                    <p>Nossa missão é capacitar pessoas com habilidades digitais práticas que realmente fazem diferença no mercado de trabalho.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fd79e677-a1a5-43fe-a387-6e875ce54157.png" alt="Estudantes diversificados usando laptops e tablets em ambiente moderno de aprendizado colaborativo">
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Seção de miniaturas -->
-    <div class="carousel-container">
-      <div class="carousel-track" id="carousel">
-        <!-- Exemplo de 70 imagens -->
-        <!-- Substitua os caminhos abaixo pelas suas imagens reais -->
-        <!-- Você pode usar imagens hospedadas ou locais -->
-        <!-- Exemplo: <img src="imagens/curso1.jpg"> ou links online -->
-        <script>
-          for (let i = 1; i <= 70; i++) {
-            document.write(`<div class='carousel-item'><img src='https://via.placeholder.com/150x100?text=Curso+${i}' alt='Curso ${i}' /></div>`);
-          }
-        </script>
-      </div>
-    </div>
-    <div class="carousel-buttons">
-      <button onclick="scrollCarousel(-1)">&larr; Anterior</button>
-      <button onclick="scrollCarousel(1)">Próximo &rarr;</button>
-    </div>
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Nossos Cursos</h2>
+            <div class="courses-container">
+                <div class="course-slider">
+                    <!-- Course 1 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Curso de Desenvolvimento Web: tela de código com HTML, CSS e JavaScript em editor moderno">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Desenvolvimento Web Completo</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3cbb6e84-21ad-4528-83ee-fa47794afced.png" alt="Curso de Python: notebook com gráficos de dados e linhas de código Python">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Python para Iniciantes</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 3 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9788343-b54e-4951-b4f4-ee63e48baf09.png" alt="Curso de Marketing Digital: dashboard com métricas e gráficos de redes sociais">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Marketing Digital Essencial</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 4 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76b3c8ae-65f4-43f0-8fa1-e3f5ed495cda.png" alt="Curso de UI/UX Design: telas de aplicativo móvel com wireframes e protótipos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">UI/UX Design Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 5 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/58f05f97-2334-4550-9b3d-8995e6e12e3e.png" alt="Curso de Data Science: visualização de dados com gráficos 3D e bancos de dados">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Introdução à Data Science</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 6 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/674f38ce-7458-4743-9d19-bbb06ddde3ea.png" alt="Curso de JavaScript Avançado: código JavaScript com efeitos visuais interativos">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">JavaScript Moderno</h3>
+                            <div class="course-price">R$33</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-nav">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="curso">
-      <h3>Título do Curso</h3>
-      <img src="sua-imagem-aqui.jpg" alt="Imagem do curso" />
-      <p>Descrição do curso. Adicione aqui informações como o que será aprendido, público-alvo, bônus, etc.</p>
-      <p class="valor">Valor: R$33 (acesso vitalício)</p>
-      <p><strong>Atenção:</strong> O acesso será liberado após a confirmação do pagamento.</p>
-      <a class="botao-pagamento" href="#">Pagar com MercadoPago</a>
-      <a class="botao" href="https://wa.me/5599999999999?text=Olá!%20Enviei%20o%20comprovante%20do%20curso%20de%20R$33%20da%20Escola%20Digital%2033." target="_blank">Enviar comprovante no WhatsApp</a>
-    </div>
-  </div>
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Transformando Vidas</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Em apenas 3 meses após concluir o curso de Marketing Digital, tripliquei minha renda trabalhando como freelancer. O retorno foi incrível para um investimento de apenas R$33!"</p>
+                <p class="testimonial-author">— Carlos Mendes, Especialista em Marketing Digital</p>
+                
+                <div class="guarantee-badge">
+                    Mais de 10.000 alunos transformando suas vidas com apenas R$33
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    &copy; 2025 Escola Digital 33. Todos os direitos reservados.
-  </footer>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Escola Digital 33</h3>
+                    <p>Educação digital acessível para todos. Cursos de qualidade por apenas R$33 com acesso vitalício.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Cursos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Desenvolvimento Web</a></li>
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Marketing Digital</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Data Science</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone-alt"></i> (11) 99999-9999</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@escoladigital33.com</a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2024 Escola Digital 33. Todos os direitos reservados. CNPJ: 12.345.678/0001-00</p>
+            </div>
+        </div>
+    </footer>
 
-  <script>
-    const track = document.getElementById('carousel');
-    let currentIndex = 0;
-    function scrollCarousel(direction) {
-      const items = document.querySelectorAll('.carousel-item');
-      const itemsPerPage = window.innerWidth < 600 ? 2 : 5;
-      const totalPages = Math.ceil(items.length / itemsPerPage);
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = 0;
-      if (currentIndex >= totalPages) currentIndex = totalPages - 1;
-      const scrollAmount = currentIndex * 100;
-      track.style.transform = `translateX(-${scrollAmount}%)`;
-    }
-  </script>
+    <script>
+        // Carousel functionality
+        const courseSlider = document.querySelector('.course-slider');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        nextBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            courseSlider.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Button hover effect enhancement
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-3px)';
+                button.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
+
+```
