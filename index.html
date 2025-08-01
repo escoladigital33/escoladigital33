@@ -1,88 +1,4 @@
 
-
-```html
-```diff
-<<<<<<< SEARCH
-    <!-- Course Details Section -->
-    <section class="course-details" id="course-details">
-=======
-    <!-- Course Details Section -->
-    <section class="course-details-section" id="course-details" style="display: none;">
->>>>>>> REPLACE
-
-```
-```
-
-2. Fix the JavaScript functions:
-
-```html
-```diff
-<<<<<<< SEARCH
-        function showCourseDetails(courseId, courseTitle, courseImage) {
-            const course = courseData[courseId];
-=======
-        function showCourseDetails(courseId) {
-            const course = courseData[courseId];
-            const courseImg = document.querySelector(`[onclick*="${courseId}"] img`).src;
-            const courseTitle = document.querySelector(`[onclick*="${courseId}"] .course-title`).textContent;
->>>>>>> REPLACE
-
-```
-```
-
-3. Fix the onclick handlers:
-
-```html
-```diff
-<<<<<<< SEARCH
-                    <div class="course-card" onclick="showCourseDetails(this.querySelector('.course-title').textContent.toLowerCase().replace(/\s+/g, '-'), this.querySelector('.course-title').textContent, this.querySelector('img').src)">
-=======
-                    <div class="course-card" onclick="showCourseDetails('desenvolvimento-web')">
->>>>>>> REPLACE
-
-```
-```
-
-4. Fix the payment section display:
-
-```html
-```diff
-<<<<<<< SEARCH
-    <!-- Payment Section -->
-    <section class="payment-section" id="payment-desenvolvimento-web">
-=======
-    <!-- Payment Section -->
-    <section class="payment-section" id="payment-desenvolvimento-web" style="display: none;">
->>>>>>> REPLACE
-```
-
-```
-
-5. Fix the course data structure:
-
-```html
-```diff
-<<<<<<< SEARCH
-            'desenvolvimento-web': {
-                title: 'Desenvolvimento Web Completo',
-=======
-            'desenvolvimento-web': {
-                img: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png',
-                title: 'Desenvolvimento Web Completo',
->>>>>>> REPLACE
-
-```
-
-
-The main issues were:
-1. Duplicate course detail sections
-2. Inconsistent selectors
-3. Missing style attributes for initially hidden sections
-4. Broken image references in course data
-5. Overly complex onclick handlers
-
-Would you like me to provide any additional diffs or focus on any particular part? I can break these down further if needed.Here is the updated HTML content after applying above edits:
-
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -522,7 +438,6 @@ Would you like me to provide any additional diffs or focus on any particular par
         .course-details-section {
             padding: 40px 0;
             background-color: var(--light-gray);
-            display: none;
         }
         
         .course-details-content {
@@ -639,7 +554,6 @@ Would you like me to provide any additional diffs or focus on any particular par
 
         /* Payment Section */
         .payment-section {
-            display: none;
             padding: 80px 0;
             background-color: var(--light-gray);
         }
@@ -794,7 +708,7 @@ Would you like me to provide any additional diffs or focus on any particular par
             <div class="courses-container">
                 <div class="course-slider">
                     <!-- Course 1 -->
-                    <div class="course-card" onclick="showCourseDetails('desenvolvimento-web')">
+                    <div class="course-card" onclick="showCourseDetails('desenvolvimento-web', this.querySelector('.course-title').textContent, this.querySelector('img').src)">
                         <div class="course-image">
                             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png" alt="Curso de Desenvolvimento Web: tela de código com HTML, CSS e JavaScript em editor moderno">
                         </div>
@@ -864,6 +778,35 @@ Would you like me to provide any additional diffs or focus on any particular par
                     <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
                     <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Section -->
+    <section class="course-details-section" id="course-details">
+        <div class="container">
+            <button class="btn-back" onclick="hideCourseDetails()">
+                <i class="fas fa-arrow-left"></i> Voltar aos cursos
+            </button>
+            <div class="course-details-content">
+                <div class="details-header">
+                    <img id="course-details-img" src="" alt="Course image" class="course-image" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ee631c78-26d8-4b97-9d6f-000b6c5636a9.png">
+                    <div class="details-title">
+                        <h2 id="course-details-title"></h2>
+                        <p class="price">R$33</p>
+                        <p class="access">Acesso Vitalício</p>
+                    </div>
+                </div>
+                <div class="details-body">
+                    <h3>O que você vai aprender:</h3>
+                    <ul id="course-features" class="features-list"></ul>
+                    
+                    <h3>Sobre o Curso</h3>
+                    <p id="course-description" class="description"></p>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="showPaymentForm()">
+                    Quero este curso!
+                </button>
             </div>
         </div>
     </section>
@@ -1027,6 +970,45 @@ Would you like me to provide any additional diffs or focus on any particular par
         </div>
     </section>
 
+    <!-- Payment Section -->
+    <section class="payment-section" id="payment-desenvolvimento-web">
+        <div class="container">
+            <h2 class="section-title">Finalizar Compra</h2>
+            <div class="payment-content">
+                <div class="payment-form">
+                    <h3>Informações Pessoais</h3>
+                    <form>
+                        <input type="text" placeholder="Nome Completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                        <input type="tel" placeholder="Telefone" required>
+                        
+                        <h3>Método de Pagamento</h3>
+                        <div class="payment-methods">
+                            <label>
+                                <input type="radio" name="payment" checked>
+                                <i class="fab fa-pix"></i> PIX
+                            </label>
+                            <label>
+                                <input type="radio" name="payment">
+                                <i class="fab fa-cc-visa"></i> Cartão de Crédito
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Finalizar Compra por R$33</button>
+                    </form>
+                </div>
+                <div class="payment-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="course-summary">
+                        <img id="payment-course-img" src="" alt="Course image" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/50bf2478-599d-4010-8d15-fce6afd8cad9.png">
+                        <h4 id="payment-course-title"></h4>
+                        <p>Acesso Vitalício</p>
+                        <div class="price">R$33</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer id="contact">
         <div class="container">
@@ -1080,6 +1062,49 @@ Would you like me to provide any additional diffs or focus on any particular par
     </footer>
 
     <script>
+        function showCourseDetails(courseId, courseTitle, courseImage) {
+            // Hide payment section if visible
+            document.getElementById('payment-desenvolvimento-web').style.display = 'none';
+            
+            document.getElementById('course-details-img').src = courseImage;
+            document.getElementById('course-details-title').textContent = courseTitle;
+            
+            const featuresList = document.getElementById('course-features');
+            featuresList.innerHTML = `
+                <li><i class="fas fa-check"></i> ${courseId === 'desenvolvimento-web' ? 
+                    'Criar sites responsivos modernos' : 
+                    'Domine fundamentos da linguagem'}</li>
+                <li><i class="fas fa-check"></i> ${courseId === 'desenvolvimento-web' ? 
+                    'Lógica de programação com JavaScript' : 
+                    'Automatizar tarefas'}</li>
+                <li><i class="fas fa-check"></i> ${courseId === 'desenvolvimento-web' ? 
+                    'Integrar com APIs e bancos de dados' : 
+                    'Desenvolver projetos práticos'}</li>
+            `;
+            
+            document.getElementById('course-description').textContent = 
+                courseId === 'desenvolvimento-web' ? 
+                'Aprenda desenvolvimento web completo do básico ao avançado.' : 
+                'Curso completo de programação para iniciantes.';
+                
+            document.getElementById('course-details').style.display = 'block';
+        }
+        
+        function hideCourseDetails() {
+            document.getElementById('course-details').style.display = 'none';
+        }
+        
+        function showPaymentForm() {
+            const title = document.getElementById('course-details-title').textContent;
+            const img = document.getElementById('course-details-img').src;
+            
+            document.getElementById('payment-course-img').src = img;
+            document.getElementById('payment-course-title').textContent = title;
+            
+            document.getElementById('course-details').style.display = 'none';
+            document.getElementById('payment-desenvolvimento-web').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
         const courseData = {
             'desenvolvimento-web': {
                 img: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2770218a-2592-46ef-9af5-38d3c04eb7b1.png',
